@@ -10,6 +10,8 @@ public class Enemy : MonoBehaviour {
 	float horizontalSpeed=150;
 	void Update () {
 		Global.OptimizeObjectRender(this.gameObject);
+		GoThroughWall(5.5f);
+
 
 		if(hp.healthpoints<=0)
 			Destroy(this.gameObject);
@@ -36,5 +38,11 @@ public class Enemy : MonoBehaviour {
 			else
 				anim.SetTrigger("JumpRight");
 		}
+	}
+	void GoThroughWall(float wallDistance){
+		if(transform.position.x>wallDistance)
+			transform.position = new Vector3(-wallDistance, transform.position.y, transform.position.z);
+		if(transform.position.x<-wallDistance)
+			transform.position = new Vector3(wallDistance, transform.position.y, transform.position.z);
 	}
 }

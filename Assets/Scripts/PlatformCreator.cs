@@ -19,8 +19,6 @@ public class PlatformCreator : MonoBehaviour {
 		DestroyObj(Global.platformFragileMovingTag);
 		DestroyObj(Global.platformFragileTag);
 		DestroyObj(Global.platformCoinTag);
-		DestroyObj(Global.platformSpringTag);
-		DestroyObj(Global.platformEnemyTag);
 		reachedPlatformH = new bool[4];
 		lastHeight=0;
 		start=true;
@@ -60,12 +58,10 @@ public class PlatformCreator : MonoBehaviour {
 	#region Object Creation Methods
 	void CreatePrize(){
 		if(Ball.pos.y > lastHeight-basicDistance && !prize){
-			CreatePlatform(ref lastHeight, 5, 5);
+			CreatePlatform(ref lastHeight, 2, 4);
 			platform.transform.localScale = new Vector2(4f,1f);
+			platform.GetComponent<Platform>().CreateCoins(50);
 
-			for(int i=0;i<50;i++){
-				Instantiate(Resources.Load<GameObject>("Prefabs/Coin"), new Vector2(Random.Range(-3,3), lastHeight+6), transform.rotation);
-			}
 			prize=true;
 		}
 	}
@@ -89,16 +85,16 @@ public class PlatformCreator : MonoBehaviour {
 	#endregion
 	#region Platform Tagging
 	void PickRandomTag(int lvl){ 
-		if(Global.ChanceInPercent(60) && lvl>=1)
+		if(Global.ChanceInPercent(30) && lvl>=1)
 			SetTag(platform, Global.platformMovingTag, new Color(0,128,192,255));
-		else if(Global.ChanceInPercent(40) && lvl>=2)
+		if(Global.ChanceInPercent(20) && lvl>=2)
 			SetTag(platform, Global.platformFragileTag, new Color(128,0,0,255));
-		else if(Global.ChanceInPercent(30) && lvl>=3)
+		if(Global.ChanceInPercent(20) && lvl>=3)
 			SetTag(platform, Global.platformFragileMovingTag, Color.black);
-		else if(Global.ChanceInPercent(20) && lvl>=0)
-			SetTag(platform, Global.platformSpringTag, Color.white);
-		else if(Global.ChanceInPercent(20*lvl) && lvl>=1 ) 
-			SetTag(platform, Global.platformEnemyTag, Color.white);
+		if(Global.ChanceInPercent(20) && lvl>=0)
+			platform.GetComponent<Platform>().AddSpring();
+		if(Global.ChanceInPercent(10*lvl) && lvl>=1 ) 
+			platform.GetComponent<Platform>().AddEnemy();
 	}
 	void SetTag(GameObject obj, string tag, Color color){
 		obj.tag = tag;

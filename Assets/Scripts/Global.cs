@@ -10,8 +10,6 @@ public class Global : MonoBehaviour{
 	public static string platformMovingTag = "platformMoving";
 	public static string platformFragileMovingTag = "platformFragileMoving";
 	public static string platformCoinTag = "platformCoin";
-	public static string platformSpringTag = "platformSpring";
-	public static string platformEnemyTag = "platformEnemy";
 	#endregion
 
 	public static bool ChanceInPercent(int b){

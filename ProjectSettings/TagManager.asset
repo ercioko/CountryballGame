@@ -9,8 +9,6 @@ TagManager:
   - platformFragile
   - platformFragileMoving
   - platformCoin
-  - platformEnemy
-  - platformSpring
   - Coin
   - Enemy
   - Spring

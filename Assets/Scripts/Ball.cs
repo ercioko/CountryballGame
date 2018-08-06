@@ -6,7 +6,7 @@ using UnityEngine.Advertisements;
 
 public class Ball : MonoBehaviour {
 
-	public static float fallHeight = 10.5f, topHeight = 7.65f, horizontalSpeed;
+	public static float fallHeight = 9f, topHeight = 7.65f, horizontalSpeed;
 	public static Vector3 pos;
 	public static Rigidbody2D rb2d;
 	public static bool onAccelerometer;
@@ -100,7 +100,7 @@ public class Ball : MonoBehaviour {
 	public static void DetectPlatform(Collision2D other){
 		if(other.gameObject.CompareTag(Global.platformFragileTag)||other.gameObject.CompareTag(Global.platformFragileMovingTag))
 				Destroy(other.gameObject);
-		if(other.gameObject.CompareTag(Global.platformSpringTag))
+		if(other.transform.Find("Spring(Clone)")!=null)
 			other.gameObject.transform.Find("Spring(Clone)").GetComponent<Spring>().UseSpring();
 	}
 	#endregion
