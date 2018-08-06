@@ -8,7 +8,7 @@ public class PlatformCreator : MonoBehaviour {
 	static bool prize, start;
 	static float lastHeight, basicDistance = 15;
 	static bool[] reachedPlatformH = new bool[4];
-	public static float minH = 2, maxH = 6, hChange;
+	public static float minH = 2, maxH = 6;
 
 	void Start(){
 		Reset();
@@ -44,8 +44,8 @@ public class PlatformCreator : MonoBehaviour {
 			for(int i=0; i < quantity; i++){
 
 				CreatePlatform(ref lastHeight, minH, maxH);
-				CreateWindow(10, lastHeight, hChange, 4);
-				CreateTorch(40, lastHeight, hChange, 2);
+				CreateWindow(10, lastHeight, minH, maxH);
+				CreateTorch(40, lastHeight, minH, maxH);
 
 				if(lvl==1)
 					platform.transform.localScale = new Vector2(0.8f,1f);
@@ -71,22 +71,19 @@ public class PlatformCreator : MonoBehaviour {
 	}
 	void CreatePlatform(ref float lastHeight, float minH, float maxH){
 		CreateObject(ref platform, "Platform");
-		hChange = HeightChange(minH, maxH);
-		lastHeight += hChange;
+		lastHeight = NewHeight(minH, maxH);
 		platform.transform.position = NextPos(4, lastHeight);
 	}
-	void CreateWindow(int chance, float lastHeight, float platformHChange, float objWidth){
+	void CreateWindow(int chance, float lastHeight, float minH, float maxH){
 		if(Global.ChanceInPercent(chance)){
 			CreateObject(ref window, "GothicWindow");
-			float newH = lastHeight + HeightChange(0, platformHChange, objWidth);
-			window.transform.position = NextPos(4.1f, newH, 1);
+			window.transform.position = NextPos(4f, NewHeight(minH, maxH), 1);
 		}
 	}
-	void CreateTorch(int chance, float lastHeight, float platformHChange, float objWidth){
+	void CreateTorch(int chance, float lastHeight, float minH, float maxH){
 		if(Global.ChanceInPercent(chance)){
 			CreateObject(ref torch, "Torch");
-			float newH = lastHeight + HeightChange(0, platformHChange, objWidth);
-			torch.transform.position = NextPos(4.1f, newH, 1);
+			torch.transform.position = NextPos(4.1f, NewHeight(minH, maxH), 1);
 		}
 	}
 	#endregion
@@ -116,7 +113,7 @@ public class PlatformCreator : MonoBehaviour {
 		Vector3 newPos = new Vector3(Random.Range(-maxXPos, maxXPos), y, z);
 		return newPos;
 	}
-	float HeightChange(float minHChange, float maxHChange, float objWidth=0){
-		return Random.Range(minHChange + objWidth/2, maxHChange - objWidth/2);
+	float NewHeight(float minHChange, float maxHChange){
+		return lastHeight + Random.Range(minHChange, maxHChange);
 	}
 }
