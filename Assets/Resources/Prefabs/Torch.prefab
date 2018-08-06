@@ -22,10 +22,10 @@ GameObject:
   - component: {fileID: 212129528582879250}
   - component: {fileID: 95574044323256276}
   - component: {fileID: 114653798931422876}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Torch
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 2800000, guid: ef9cccfa44380564ba721f02752302da, type: 3}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1

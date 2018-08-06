@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4434684353269088}
   - component: {fileID: 58162192328637876}
   - component: {fileID: 114563677854423172}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EnemyBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,10 +40,10 @@ GameObject:
   - component: {fileID: 50188212594489978}
   - component: {fileID: 114328402733474582}
   - component: {fileID: 95419698783220826}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Enemy
   m_TagString: Enemy
-  m_Icon: {fileID: 2800000, guid: 2b6daf7bc9ca72f4398c38fccc9cb617, type: 3}
+  m_Icon: {fileID: 2800000, guid: 535f0dca5b902864188d0d6c9890c8c9, type: 3}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -56,7 +56,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4627848270406044}
   - component: {fileID: 212969383553488752}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EnemyHeart1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4040221318880822}
   - component: {fileID: 212020701015598262}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EnemyHeart2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 4669784290632404}
   - component: {fileID: 212953319345456444}
   - component: {fileID: 61410004055220074}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Axe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,7 +115,7 @@ GameObject:
   - component: {fileID: 82517736454123826}
   - component: {fileID: 82030420878440452}
   - component: {fileID: 82829653830592220}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EnemyHealth
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4674574856791734}
   - component: {fileID: 212167380098054406}
   - component: {fileID: 114215057865075758}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GothicWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
