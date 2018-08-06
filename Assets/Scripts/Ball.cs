@@ -34,18 +34,9 @@ public class Ball : MonoBehaviour {
 	}
 	void Update() {
 		pos = transform.position;
+		GoThroughWall(5.5f);
 	}
-	public void OnCollisionEnter2D(Collision2D other) {
-		const float ballRadius = 0.3f;
-		bool isPlatform = other.gameObject.name == "Platform(Clone)";
-		int jumpStrength = 430;
-		if(other.transform.position.y + ballRadius < pos.y && isPlatform){	
-			SetAnimatorTrigger();
-			DetectPlatform(other);
-			rb2d.AddForce(Vector2.up*jumpStrength, ForceMode2D.Impulse);
-			aSources[0].Play();
-		}	
-	}
+	#region  Input
 	void GetArrowInput(){
 		if(!onAccelerometer){
 			if(Input.GetKey(KeyCode.RightArrow) || rightArrowPressed)
@@ -70,13 +61,31 @@ public class Ball : MonoBehaviour {
 			horizontalSpeed = Input.acceleration.x * 30;
 		}
 	}
-	void CheckHeight(){
-		if(transform.position.y<topHeight-fallHeight){
-			menu.ExitToMenu();
-			//if(Random.Range(0,5)==0)
-				//Advertisement.Show();
-		}else if(transform.position.y>topHeight)
-			topHeight=transform.position.y;
+	public void ChangeInput(){
+		onAccelerometer=!onAccelerometer;
+		if(onAccelerometer)
+		{
+			GameObject.Find("TiltText").GetComponent<Text>().text = "Tilt";
+			leftArrow.SetActive(false);
+			rightArrow.SetActive(false);
+		}else{
+			GameObject.Find("TiltText").GetComponent<Text>().text = "Arrows";
+			leftArrow.SetActive(true);
+			rightArrow.SetActive(true);
+		}
+	}
+	#endregion
+	#region PlatformInteraction
+	public void OnCollisionEnter2D(Collision2D other) {
+		const float ballRadius = 0.3f;
+		bool isPlatform = other.gameObject.name == "Platform(Clone)";
+		int jumpStrength = 430;
+		if(other.transform.position.y + ballRadius < pos.y && isPlatform){	
+			SetAnimatorTrigger();
+			DetectPlatform(other);
+			rb2d.AddForce(Vector2.up*jumpStrength, ForceMode2D.Impulse);
+			aSources[0].Play();
+		}	
 	}
 	void SetAnimatorTrigger(){
 		if(animator.enabled){
@@ -94,30 +103,8 @@ public class Ball : MonoBehaviour {
 		if(other.gameObject.CompareTag(Global.platformSpringTag))
 			other.gameObject.transform.Find("Spring(Clone)").GetComponent<Spring>().UseSpring();
 	}
-	public void ChangeInput(){
-		onAccelerometer=!onAccelerometer;
-		if(onAccelerometer)
-		{
-			GameObject.Find("TiltText").GetComponent<Text>().text = "Tilt";
-			leftArrow.SetActive(false);
-			rightArrow.SetActive(false);
-		}else{
-			GameObject.Find("TiltText").GetComponent<Text>().text = "Arrows";
-			leftArrow.SetActive(true);
-			rightArrow.SetActive(true);
-		}
-	}
-	public void Reset(){
-		transform.position = new Vector3(0,0.65f,-1);
-		transform.rotation = Quaternion.identity;
-		transform.Find("Weapon").localPosition = new Vector3(1.8f, 0.3f, -1f);
-		transform.Find("Weapon").localRotation = Quaternion.Euler(0, 0, -30);
-		topHeight = 7.65f;
-		horizontalSpeed = 0;
-		pos.y = 0.65f;	
-		hp.Reset();	
-	}
-
+	#endregion
+	#region  ArrowClicks
 	public void LeftArrowDown(){
 		leftArrowPressed = true;
 	}
@@ -129,5 +116,28 @@ public class Ball : MonoBehaviour {
 	}
 	public void RightArrowUp(){
 		rightArrowPressed = false;
+	}
+	#endregion
+	public void Reset(){
+		transform.position = new Vector3(0,0.65f,-1);
+		transform.rotation = Quaternion.identity;
+		transform.Find("Weapon").localPosition = new Vector3(1.8f, 0.3f, -1f);
+		transform.Find("Weapon").localRotation = Quaternion.Euler(0, 0, -30);
+		topHeight = 7.65f;
+		horizontalSpeed = 0;
+		pos.y = 0.65f;	
+		hp.Reset();	
+	}
+	void CheckHeight(){
+		if(transform.position.y<topHeight-fallHeight){
+			menu.ExitToMenu();
+		}else if(transform.position.y>topHeight)
+			topHeight=transform.position.y;
+	}
+	void GoThroughWall(float wallDistance){
+		if(pos.x>wallDistance)
+			transform.position = new Vector3(-wallDistance, pos.y, pos.z);
+		if(pos.x<-wallDistance)
+			transform.position = new Vector3(wallDistance, pos.y, pos.z);
 	}
 }
