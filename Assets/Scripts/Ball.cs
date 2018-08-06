@@ -35,7 +35,7 @@ public class Ball : MonoBehaviour {
 	void Update() {
 		pos = transform.position;
 	}
-	void OnCollisionEnter2D(Collision2D other) {
+	public void OnCollisionEnter2D(Collision2D other) {
 		const float ballRadius = 0.3f;
 		bool isPlatform = other.gameObject.name == "Platform(Clone)";
 		int jumpStrength = 430;

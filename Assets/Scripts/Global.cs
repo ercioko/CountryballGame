@@ -14,7 +14,7 @@ public class Global : MonoBehaviour{
 	public static string platformEnemyTag = "platformEnemy";
 	#endregion
 
-	public static bool chanceInPercent(int b){
+	public static bool ChanceInPercent(int b){
 		int randomShot = Random.Range(0,100);
 		if(randomShot>=0 && randomShot<=b)
 			return true;
