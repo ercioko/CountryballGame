@@ -150,13 +150,4 @@ public class StoreTests {
 		Assert.IsTrue(Weapon.weapon.GetComponent<BoxCollider2D>().size == colliderSize);
 		Assert.IsTrue(Weapon.weapon.GetComponent<BoxCollider2D>().offset == colliderOffset);
 	}
-	[Test]
-	public void X_X_X(){
-		//ARRANGE
-
-		//ACT
-		
-		//ASSERT
-		
-	}
 }

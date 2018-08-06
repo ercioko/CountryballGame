@@ -11,7 +11,8 @@ public class Ball : MonoBehaviour {
 	public static Rigidbody2D rb2d;
 	public static bool onAccelerometer;
 	public static AudioSource[] aSources;
-	public static GameObject leftArrow, rightArrow, ball;
+	public GameObject leftArrow, rightArrow;
+	public static GameObject ball;
 	public Menu menu;
 	public HP hp;
 	bool leftArrowPressed, rightArrowPressed, platformTouched;
@@ -46,26 +47,27 @@ public class Ball : MonoBehaviour {
 		}	
 	}
 	void GetArrowInput(){
-		if(Input.GetKey(KeyCode.RightArrow) || rightArrowPressed)
-		{
-			if(horizontalSpeed<0)
-				horizontalSpeed+=1f;
-			if(horizontalSpeed<9)
-				horizontalSpeed+=0.5f;
-		}
-		if(Input.GetKey(KeyCode.LeftArrow) || leftArrowPressed)
-		{
-			if(horizontalSpeed>0)
-				horizontalSpeed-=1f;
-			if(horizontalSpeed>-9)
-				horizontalSpeed-=0.5f;
+		if(!onAccelerometer){
+			if(Input.GetKey(KeyCode.RightArrow) || rightArrowPressed)
+			{
+				if(horizontalSpeed<0)
+					horizontalSpeed+=1f;
+				if(horizontalSpeed<9)
+					horizontalSpeed+=0.5f;
+			}
+			if(Input.GetKey(KeyCode.LeftArrow) || leftArrowPressed)
+			{
+				if(horizontalSpeed>0)
+					horizontalSpeed-=1f;
+				if(horizontalSpeed>-9)
+					horizontalSpeed-=0.5f;
+			}
 		}
 	}
 	void GetAccelerometerInput(){
 		if(onAccelerometer)
 		{
-			if(Input.acceleration.x>=0.02f||Input.acceleration.x<=-0.02f)
-				horizontalSpeed = Input.acceleration.x * 30;
+			horizontalSpeed = Input.acceleration.x * 30;
 		}
 	}
 	void CheckHeight(){
@@ -86,10 +88,10 @@ public class Ball : MonoBehaviour {
 					animator.SetTrigger("Jump");
 		}
 	}
-	void DetectPlatform(Collision2D other){
-		if(other.gameObject.tag == "Destroy"||other.gameObject.tag=="DestroyMove")
+	public static void DetectPlatform(Collision2D other){
+		if(other.gameObject.CompareTag(Global.platformFragileTag)||other.gameObject.CompareTag(Global.platformFragileMovingTag))
 				Destroy(other.gameObject);
-		if(other.gameObject.tag=="Spring")
+		if(other.gameObject.CompareTag(Global.platformSpringTag))
 			other.gameObject.transform.Find("Spring(Clone)").GetComponent<Spring>().UseSpring();
 	}
 	public void ChangeInput(){

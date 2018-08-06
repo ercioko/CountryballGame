@@ -19,15 +19,15 @@ public class Platform : MonoBehaviour {
 
 		if(tag=="platform"&& Global.chanceInPercent(10))
 			CreateCoins(1);
-		else if(tag=="Move"&& Global.chanceInPercent(30))
+		else if(tag=="platformMoving"&& Global.chanceInPercent(30))
 			CreateCoins(1);
-		else if(tag=="Destroy"&& Global.chanceInPercent(40))
+		else if(tag=="platformFragile"&& Global.chanceInPercent(40))
 			CreateCoins(2);
-		else if(tag=="DestroyMove"&& Global.chanceInPercent(50))
+		else if(tag=="platformFragileMoving"&& Global.chanceInPercent(50))
 			CreateCoins(3);
-		else if(tag=="Spring")
+		else if(tag=="platformSpring")
 			AddSpring();
-		else if(tag=="Enemy")
+		else if(tag=="platformEnemy")
 			AddEnemy();
 	}
 	void Update () {
@@ -37,7 +37,7 @@ public class Platform : MonoBehaviour {
 			enemy.GetComponent<Enemy>().followedPlatform = this.transform;
 	}
 	void TransformMovingPlatform(){
-		if(tag == "Move" ||tag == "DestroyMove"){
+		if(tag == "platformMoving" ||tag == "platformFragile"){
 			if(transform.position.x>5&&!movingRight){
 				speed = -speed;
 				movingRight=true;
