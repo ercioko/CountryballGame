@@ -8,7 +8,7 @@ public class Menu : MonoBehaviour {
 	public AudioSource ambient, gameMusic;
 	public Image gameUI;
 	public Text musicText;
-	bool pause, musicOff;
+	bool musicOff;
 	
 	private void Start() {
 		ExitToMenu();
@@ -28,6 +28,7 @@ public class Menu : MonoBehaviour {
 	public void StartGame(){
 		ambient.Stop();
 		Screen.sleepTimeout = 600;
+		Time.timeScale = 1;
 
 		menu.SetActive(false);
 		gameplay.SetActive(true);
@@ -38,8 +39,7 @@ public class Menu : MonoBehaviour {
 		ball.GetComponent<AudioSource>().volume = 0.05f;
 	}
 	public void PauseGame(){
-		pause=!pause;
-		if(pause){
+		if(Time.timeScale==1){
 			Time.timeScale = 0;
 		}else{
 			Time.timeScale = 1;
